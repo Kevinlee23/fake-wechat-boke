@@ -1,0 +1,35 @@
+html, body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, legend, button, input, textarea, th, td {
+  margin: 0;
+  padding: 0;
+
+  color: #000000;
+  font-family: 'Microsoft YaHei', 'Inter', 'ui-sans-serif';
+}
+
+body {
+  background-color: #f0f1f2;
+}
+
+.page-main {
+  width: 1180px;
+  margin: 0 auto;
+}
+
+*::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+*::-webkit-scrollbar-track {
+  background: #e9ebee;
+  border-radius: 2px;
+}
+*::-webkit-scrollbar-thumb {
+  background: #aaa;
+  border-radius: 2px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: #747474;
+}
+*::-webkit-scrollbar-corner {
+  background: #f6f6f6;
+}
