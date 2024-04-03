@@ -3,10 +3,11 @@ html, body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, p
   padding: 0;
 
   color: #000000;
-  font-family: 'Microsoft YaHei', 'Inter', 'ui-sans-serif';
+  font-family: 'Fira Code', 'Microsoft YaHei';
 }
 
 body {
+  font-size: 14px;
   background-color: #f0f1f2;
 }
 
