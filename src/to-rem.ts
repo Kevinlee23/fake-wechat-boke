@@ -2,7 +2,7 @@ import { reactive, watch } from 'vue'
 import { useWindowSize } from '@vueuse/core'
 
 const WIDTH = 992
-const initialState = reactive({
+export const initialState = reactive({
   isBrowser: true,
   device: 'desktop'
 })

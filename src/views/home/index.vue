@@ -4,6 +4,7 @@ import avatar from '@/assets/wallhaven-3l7vqy.jpg'
 import type { Blog } from 'types/blog/index.ts'
 import type { Comment } from 'types/comment/index.ts'
 import bokeItem from './boke-item.vue'
+import { initialState } from '@/to-rem.ts'
 
 
 const bokeList = ref<Blog[]>([
@@ -56,6 +57,8 @@ const comments = ref<Comment[]>([
   },
 ])
 
+
+
 const handleToGithub = () => {
   location.href = "https://github.com/Kevinlee23"
 }
@@ -80,7 +83,7 @@ const handleToGithub = () => {
       <div class="text-[12px] text-center">-- 暂无更多内容 --</div>
     </div>
 
-    <div class="fixed bottom-[24px] left-[48px] text-[12px] text-[#576b95] flex align-baseline gap-x-[4px]">
+    <div v-if="initialState.device === 'desktop'" class="fixed bottom-[24px] left-[48px] text-[12px] text-[#576b95] flex align-baseline gap-x-[4px]">
       <div class="border-b-[1px] border-b-[#576b95] cursor-pointer" @click="handleToGithub">
         Snowinlu
       </div>
