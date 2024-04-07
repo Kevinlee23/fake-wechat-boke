@@ -56,10 +56,14 @@ const comments = ref<Comment[]>([
   },
 ])
 
+const handleToGithub = () => {
+  location.href = "https://github.com/Kevinlee23"
+}
+
 </script>
 
 <template>
-  <div class="type-page bg-white">
+  <div class="type-page relative bg-white">
     <div class="header w-full h-[308px] mb-[48px] relative">
       <div class="absolute -bottom-[40px] right-[24px]">
         <div class="flex items-center justify-end mb-[12px]">
@@ -74,6 +78,14 @@ const comments = ref<Comment[]>([
     <div class="w-full min-h-screen">
       <boke-item v-for="item in bokeList" :key="item.id" :model="item" :allComment="comments"></boke-item>
       <div class="text-[12px] text-center">-- 暂无更多内容 --</div>
+    </div>
+
+    <div class="fixed bottom-[24px] left-[48px] text-[12px] text-[#576b95] flex align-baseline gap-x-[4px]">
+      <div class="border-b-[1px] border-b-[#576b95] cursor-pointer" @click="handleToGithub">
+        Snowinlu
+      </div>
+      <div class="text-[14px] font-bold">©</div>
+      <div>2024</div>
     </div>
   </div>
 </template>
