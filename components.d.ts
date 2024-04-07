@@ -7,6 +7,7 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    CommentInput: typeof import('./src/components/comments/comment-input.vue')['default']
     ElDivider: typeof import('element-plus/es')['ElDivider']
     ElDivier: typeof import('element-plus/es')['ElDivier']
     ElDropdown: typeof import('element-plus/es')['ElDropdown']
@@ -14,6 +15,7 @@ declare module 'vue' {
     ElDropdownMenu: typeof import('element-plus/es')['ElDropdownMenu']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElImage: typeof import('element-plus/es')['ElImage']
+    ElInput: typeof import('element-plus/es')['ElInput']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

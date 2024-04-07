@@ -59,7 +59,7 @@ const comments = ref<Comment[]>([
 </script>
 
 <template>
-  <div class="w-[567px] mx-auto bg-white">
+  <div class="type-page bg-white">
     <div class="header w-full h-[308px] mb-[48px] relative">
       <div class="absolute -bottom-[40px] right-[24px]">
         <div class="flex items-center justify-end mb-[12px]">
@@ -83,5 +83,16 @@ const comments = ref<Comment[]>([
   background-image: url('@/assets/wallhaven-6dexwq.jpg');
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+@media (max-width: 991.9px) {
+  .type-page {
+    width: 100%;
+  }
+}
+@media (min-width: 992px) {
+  .type-page {
+    @apply w-[567px] mx-auto;
+  }
 }
 </style>

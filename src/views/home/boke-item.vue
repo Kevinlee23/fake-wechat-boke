@@ -4,6 +4,7 @@ import { Star, StarFilled, MoreFilled, Comment as IconComment } from '@element-p
 import { format } from 'timeago.js'
 import type { Blog } from 'types/blog/index.ts'
 import type { Comment } from 'types/comment/index.ts';
+import CommentInput from '@/components/comments/comment-input.vue'
 import avatar from '@/assets/wallhaven-3l7vqy.jpg'
 
 const props = defineProps({
@@ -11,14 +12,32 @@ const props = defineProps({
   allComment: { type: Array as PropType<Comment[]>, default: []}
 })
 
+const inputEl = ref<InstanceType<typeof CommentInput> | null>(null)
 const commentList = computed<Comment[]>(() => props.allComment.filter(item => item.bokeId === props.model.id))
+
+const selected = ref<Comment>()
+const tapInput = (item?: Comment) => {
+  if (item) {
+    selected.value = item
+  } else {
+    selected.value = undefined
+  }
+
+  inputEl.value && inputEl.value.onShow()
+}
+const handleEvent = (command: string) => {
+  if (command === 'comment') {
+    tapInput()
+  }
+}
+
 
 </script>
 <template>
-  <div class="px-5 pt-5">
-    <div class="flex">
-      <el-image class="w-9 h-9 rounded-[8px]" :src="avatar" />
-      <div class="flex-1 flex flex-col gap-y-1 ml-3">
+  <div class="px-[20px] pt-[20px]">
+    <div class="flex mb-[16px]">
+      <el-image class="w-[36px] h-[36px] rounded-[8px]" :src="avatar" />
+      <div class="flex-1 flex flex-col gap-y-[4px] ml-[12px]">
         <div class="text-[#576b95]">麓下雪</div>
         <div>{{ model.content }}</div>
         <template v-if="model.imgSrcList?.length">
@@ -28,17 +47,20 @@ const commentList = computed<Comment[]>(() => props.allComment.filter(item => it
         <div v-if="model.address" class="text-[12px] text-[#576b95]">{{ model.address }}</div>
 
         <div class="flex justify-between">
-          <div class="text-[12px] text-[#9ca3af]">{{ format(model.createTime, 'zh_CN') }}</div>
-          <el-dropdown class="boke-drop" trigger="click" placement="left" :teleported="false">
+          <div class="group/item">
+            <div class="text-[12px] text-[#9ca3af] hidden group-hover/item:block">{{ model.createTime }}</div>
+            <div class="text-[12px] text-[#9ca3af] group-hover/item:hidden">{{ format(model.createTime, 'zh_CN') }}</div>
+          </div>
+          <el-dropdown class="boke-drop" trigger="click" placement="left" :teleported="false" @command="handleEvent">
             <el-icon class="cursor-pointer"><MoreFilled /></el-icon>
             <template #dropdown>
               <el-dropdown-menu>
                 <el-dropdown-item>
-                  <el-icon class="mr-1" :size="18"><StarFilled /></el-icon>
+                  <el-icon class="text-[18px] mr-[4px]"><StarFilled /></el-icon>
                   点赞
                 </el-dropdown-item>
-                <el-dropdown-item>
-                  <el-icon  class="mr-1" :size="18"><IconComment /></el-icon>
+                <el-dropdown-item command="comment">
+                  <el-icon  class="text-[18px] mr-[4px]"><IconComment /></el-icon>
                   评论
                 </el-dropdown-item>
               </el-dropdown-menu>
@@ -46,13 +68,13 @@ const commentList = computed<Comment[]>(() => props.allComment.filter(item => it
           </el-dropdown>
         </div>
 
-        <div class="bg-[#f7f7f7] px-2 py-1">
-          <div class="mb-3 flex items-center">
-            <el-icon class="mr-1" :size="18"><Star /></el-icon>
+        <div class="bg-[#f7f7f7] px-[8px] py-[4px]">
+          <div class="mb-[12px] flex items-center">
+            <el-icon class="text-[18px] mr-[4px]"><Star /></el-icon>
             {{ model.likeNum }}位访客赞过
           </div>
-          <div v-for="(item, index) in commentList" :key="item.id" class="flex" :class="{'mb-1': index !== commentList.length-1}">
-            <div class="flex gap-x-1 text-[#576b95]">
+          <div v-for="(item, index) in commentList" :key="item.id" class="flex" :class="{'mb-[4px]': index !== commentList.length-1}">
+            <div class="flex gap-x-[4px] text-[#576b95]">
               <span>{{ item.authorName }}</span>
               <template  v-if="item.parentId">
                 <span>回复</span>
@@ -60,11 +82,12 @@ const commentList = computed<Comment[]>(() => props.allComment.filter(item => it
               </template>
               <span>:</span>
             </div>
-            <div class="ml-2 cursor-pointer">{{ item.content }}</div>
+            <div class="ml-[8px] cursor-pointer" @click="tapInput(item)">{{ item.content }}</div>
           </div>
         </div>
       </div>
     </div>
+    <comment-input ref="inputEl" :selected="selected"></comment-input>
     <el-divider class="boke-divider" />
   </div>
 </template>
@@ -76,7 +99,7 @@ const commentList = computed<Comment[]>(() => props.allComment.filter(item => it
 
 .boke-drop {
   :deep(.el-dropdown-menu) {
-    @apply flex p-1;
+    @apply flex p-[4px];
   }
 }
 </style>
