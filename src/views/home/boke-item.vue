@@ -2,10 +2,10 @@
 import { PropType } from 'vue';
 import { Star, StarFilled, MoreFilled, Comment as IconComment } from '@element-plus/icons-vue'
 import { format } from 'timeago.js'
-import type { Blog } from 'types/blog/index.ts'
-import type { Comment } from 'types/comment/index.ts';
 import CommentInput from '@/components/comments/comment-input.vue'
 import avatar from '@/assets/wallhaven-3l7vqy.jpg'
+import type { Blog } from 'types/blog/index.ts'
+import type { Comment } from 'types/comment/index.ts';
 
 const props = defineProps({
   model: { type: Object as PropType<Blog>, required: true },
@@ -39,7 +39,7 @@ const handleEvent = (command: string) => {
       <el-image class="w-[36px] h-[36px] rounded-[8px]" :src="avatar" />
       <div class="flex-1 flex flex-col gap-y-[4px] ml-[12px]">
         <div class="text-[#576b95]">麓下雪</div>
-        <div>{{ model.content }}</div>
+        <text-ellipsis :text="model.content"></text-ellipsis>
         <template v-if="model.imgSrcList?.length">
           <el-image class="w-[288px]" :src="model.imgSrcList[0]" :preview-src-list="model.imgSrcList" />
         </template>

@@ -18,5 +18,6 @@ declare module 'vue' {
     ElInput: typeof import('element-plus/es')['ElInput']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    TextEllipsis: typeof import('./src/components/text-ellipsis/index.vue')['default']
   }
 }

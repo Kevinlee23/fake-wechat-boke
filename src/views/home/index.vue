@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import bokeItem from './boke-item.vue'
+import { initialState } from '@/to-rem.ts'
 import avatar from '@/assets/wallhaven-3l7vqy.jpg'
 import type { Blog } from 'types/blog/index.ts'
 import type { Comment } from 'types/comment/index.ts'
-import bokeItem from './boke-item.vue'
-import { initialState } from '@/to-rem.ts'
 
 
 const bokeList = ref<Blog[]>([
