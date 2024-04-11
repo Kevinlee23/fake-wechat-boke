@@ -1178,6 +1178,11 @@ core-js-compat@^3.34.0:
   dependencies:
     browserslist "^4.23.0"
 
+cplayer@^3.2.2:
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/cplayer/-/cplayer-3.2.2.tgz#7fa9364758f12df16bb309362ccbbdd02a84da0d"
+  integrity sha512-v8sn5cAArBJzkShviu1gJJydVb1wEIgt4s9aIx10APDnAjHOZDN9LWd27hyTVwAmz3J+WWlsCqqs8gSZ/jJa5A==
+
 cross-spawn@^7.0.0, cross-spawn@^7.0.3:
   version "7.0.3"
   resolved "https://registry.npmjs.org/cross-spawn/-/cross-spawn-7.0.3.tgz"

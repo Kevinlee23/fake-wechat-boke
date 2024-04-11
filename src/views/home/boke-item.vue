@@ -2,6 +2,7 @@
 import { PropType } from 'vue';
 import { Star, StarFilled, MoreFilled, Comment as IconComment } from '@element-plus/icons-vue'
 import { format } from 'timeago.js'
+import MusicPlayer from '@/components/music-player/index.vue'
 import CommentInput from '@/components/comments/comment-input.vue'
 import avatar from '@/assets/wallhaven-3l7vqy.jpg'
 import type { Blog } from 'types/blog/index.ts'
@@ -40,8 +41,15 @@ const handleEvent = (command: string) => {
       <div class="flex-1 flex flex-col gap-y-[4px] ml-[12px]">
         <div class="text-[#576b95]">麓下雪</div>
         <text-ellipsis :text="model.content"></text-ellipsis>
+
+        <!-- IMAGE -->
         <template v-if="model.imgSrcList?.length">
           <el-image class="w-[288px]" :src="model.imgSrcList[0]" :preview-src-list="model.imgSrcList" />
+        </template>
+
+        <!-- MUSIC -->
+        <template v-if="model.musicList?.length">
+          <music-player :playList="model.musicList"></music-player>
         </template>
 
         <div v-if="model.address" class="text-[12px] text-[#576b95]">{{ model.address }}</div>
@@ -68,8 +76,8 @@ const handleEvent = (command: string) => {
           </el-dropdown>
         </div>
 
-        <div class="bg-[#f7f7f7] px-[8px] py-[4px]">
-          <div class="mb-[12px] flex items-center">
+        <div class="bg-[#f7f7f7] px-[8px]" :class="{'py-[4px]': model.likeNum > 0 || commentList.length > 0}">
+          <div v-if="model.likeNum" class="mb-[12px] flex items-center">
             <el-icon class="text-[18px] mr-[4px]"><Star /></el-icon>
             {{ model.likeNum }}位访客赞过
           </div>
