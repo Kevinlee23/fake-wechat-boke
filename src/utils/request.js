@@ -10,7 +10,7 @@ const headers = {
   "Content-Type": "application/json",
 }
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwidXNlcm5hbWUiOiJqb2huIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNzE0MDExNzQxLCJleHAiOjE3MTQwOTgxNDF9.GlY8q8CpgthmeJjptxQL4SGc_JN1d6UXjD7NFUoq3go'
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwidXNlcm5hbWUiOiJqb2huIiwicm9sZXMiOlsiYWRtaW4iXSwiaWF0IjoxNzE4ODQ1NTQ3LCJleHAiOjE3MTg5MzE5NDd9.ttJfPT_JrDFjp9fxYKHTNHKTKKFtMy-W_EO2CU7LORs'
 
 service.interceptors.request.use(
   (config) => {

@@ -5,18 +5,16 @@ import { initialState } from '@/to-rem.ts'
 import avatar from '@/assets/wallhaven-3l7vqy.jpg'
 import { getBlogList } from '@/apis/home/home.js'
 import type { Blog } from 'types/blog/index.ts'
-import type { Comment } from 'types/comment/index.ts'
 import type { Response } from 'types/request'
 
 const bokeList = ref<Blog[]>([])
-const comments = ref<Comment[]>([])
 
 const handleToGithub = () => {
   location.href = "https://github.com/Kevinlee23"
 }
 
 getBlogList().then(res => {
-  bokeList.value = (res as unknown as Response<Blog[]>).data
+  bokeList.value = (res as unknown as Response<{rows: Blog[], total: string}>).data.rows
 })
 
 </script>
@@ -35,7 +33,7 @@ getBlogList().then(res => {
       </div>
     </div>
     <div class="w-full min-h-screen">
-      <boke-item v-for="item in bokeList" :key="item._id" :model="item" :allComment="comments"></boke-item>
+      <boke-item v-for="item in bokeList" :key="item._id" :model="item" :comments="item.commentIds"></boke-item>
       <div class="text-[12px] text-center">-- 暂无更多内容 --</div>
     </div>
 

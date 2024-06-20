@@ -5,10 +5,6 @@ const props = defineProps({
   line: { type: Number, default: 2 },
 })
 
-const clampClass = computed<string>(() => {
-  return `line-clamp-${props.line}`
-})
-
 const textEl = ref<HTMLElement | null>(null)
 const { width } = useElementSize(textEl)
 const elStyle = computed<CSSStyleDeclaration | string>(() => {
@@ -25,8 +21,9 @@ const isEllipsis = computed<boolean>(() => {
 const isToggle = ref<boolean>(true)
 </script>
 <template>
-  <div ref="textEl" :class="[isToggle ? clampClass : '', 'relative']">
-    {{ text }}
+  <div ref="textEl">
+    <el-text v-if="isToggle" :line-clamp="line">{{ text }}</el-text>
+    <div v-else>{{ text }}</div>
   </div>  
   <div v-if="isEllipsis" class="w-fit text-[#576b95] cursor-pointer" @click="isToggle = !isToggle">{{ isToggle ? '全文' : '收起' }}</div>
 </template>

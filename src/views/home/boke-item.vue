@@ -8,23 +8,12 @@ import avatar from '@/assets/wallhaven-3l7vqy.jpg'
 import type { Blog } from 'types/blog/index.ts'
 import type { Comment } from 'types/comment/index.ts';
 
-const props = defineProps({
+defineProps({
   model: { type: Object as PropType<Blog>, required: true },
-  allComment: { type: Array as PropType<Comment[]>, default: []}
+  comments: { type: Array as PropType<Comment[]>, default: []}
 })
 
 const inputEl = ref<InstanceType<typeof CommentInput> | null>(null)
-// FIXME: 从接口中获取
-const commentList = computed<Comment[]>(() => props.allComment.filter(item => item.blogId === props.model._id))
-const musicList = computed(() => {
-  return props.model.musicList && props.model.musicList.map(item => {
-    // FIXME: 暂时静态文件, 后续替换成 oss 地址
-    item.src = new URL(`../../assets/${item.src}`, import.meta.url).href
-    item.poster = new URL(`../../assets/${item.poster}`, import.meta.url).href
-
-    return item
-  })
-})
 
 const selected = ref<Comment>()
 const tapInput = (item?: Comment) => {
@@ -57,7 +46,7 @@ const handleEvent = (command: string) => {
 
         <!-- MUSIC -->
         <template v-if="model.musicList?.length">
-          <music-player :playList="musicList || []"></music-player>
+          <music-player :playList="model.musicList || []"></music-player>
         </template>
 
         <div v-if="model.address" class="text-[12px] text-[#576b95]">{{ model.address }}</div>
@@ -84,12 +73,12 @@ const handleEvent = (command: string) => {
           </el-dropdown>
         </div>
 
-        <div class="bg-[#f7f7f7] px-[8px]" :class="{'py-[4px]': model.likeNum > 0 || commentList.length > 0}">
-          <div v-if="model.likeNum" class="mb-[12px] flex items-center">
+        <div class="px-[8px]bg-[#f7f7f7]" :class="{'py-[4px]': model.likeNum > 0 || comments.length > 0}">
+          <div v-if="model.likeNum" class="flex items-center" :class="{'mb-[12px]': comments.length > 0}">
             <el-icon class="text-[18px] mr-[4px]"><Star /></el-icon>
             {{ model.likeNum }}位访客赞过
           </div>
-          <div v-for="(item, index) in commentList" :key="item._id" class="flex" :class="{'mb-[4px]': index !== commentList.length-1}">
+          <div v-for="(item, index) in comments" :key="item._id" class="flex" :class="{'mb-[4px]': index !== comments.length-1}">
             <div class="flex gap-x-[4px] text-[#576b95]">
               <span>{{ item.authorName }}</span>
               <template  v-if="item.parentId">

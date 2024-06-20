@@ -1,4 +1,5 @@
 import type { IAudioItem } from 'cplayer/lib/interfaces';
+import type { Comment } from '@/types/comment'
 
 export interface Blog {
   _id: string,
@@ -9,5 +10,5 @@ export interface Blog {
   likeNum: number,
   createDate: string,
   createTime: string,
-  commentIds: string[]
+  commentIds: Comment[]
 }
