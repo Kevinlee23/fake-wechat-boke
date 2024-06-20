@@ -20,13 +20,21 @@ export default defineConfig({
         ElementPlusResolver(),
       ]
     }),
-    
     Components({
       resolvers: [
         ElementPlusResolver(),
       ],
     }),
   ],
+  server: {
+    proxy: {
+      "/api": {
+        target: "http://localhost:9090",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      }
+    }
+  },
   resolve: {
     alias: {
       '@': rootPath,
