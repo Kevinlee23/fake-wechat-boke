@@ -1,7 +1,9 @@
 import axios from 'axios'
 
+const { VITE_NODE_ENV } = import.meta.env
+
 const service = axios.create({
-  baseURL: 'api',
+  baseURL: VITE_NODE_ENV === 'development' ? 'api' : '',
   timeout: 10000,
   withCredentials: true
 })
