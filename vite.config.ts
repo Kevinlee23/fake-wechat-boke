@@ -29,11 +29,12 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://localhost:9090",
+        target: "http://47.98.246.12:9090",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       }
-    }
+    },
+    cors: true
   },
   resolve: {
     alias: {
