@@ -3,7 +3,7 @@ import axios from 'axios'
 const { VITE_NODE_ENV } = import.meta.env
 
 const service = axios.create({
-  baseURL: VITE_NODE_ENV === 'development' ? 'api' : '',
+  baseURL: VITE_NODE_ENV === 'development' ? 'api' : import.meta.env.VITE_GLOB_API_URL,
   timeout: 10000,
   withCredentials: true
 })
