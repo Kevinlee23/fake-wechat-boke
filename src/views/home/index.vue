@@ -17,6 +17,26 @@ getBlogList().then(res => {
   bokeList.value = (res as unknown as Response<{rows: Blog[], total: string}>).data.rows
 })
 
+const text = "A week is 2% of a year"
+
+const typeEl = ref<HTMLElement | null>(null)
+let index = 0;
+let flag = ref(false)
+function addNextCharacter() {
+  if (index < text.length) {
+    typeEl.value && (typeEl.value.textContent += text[index]);
+    index++;
+    setTimeout(addNextCharacter, Math.random() * 150 + 30);
+  } else {
+    flag.value = true
+  }
+}
+
+onMounted(() => {
+  typeEl.value && (typeEl.value.innerText = '')
+  addNextCharacter();
+})
+
 </script>
 
 <template>
@@ -28,7 +48,8 @@ getBlogList().then(res => {
           <el-image class="w-[60px] h-[60px] rounded-[8px]" :src="avatar" />
         </div>
         <div class="text-[12px] text-[#666666] font-medium">
-          我怎么信仰 就怎么生活
+          <span ref="typeEl"></span>
+          <span class="pl-[4px] font-bold" :class="{ 'typed-cursor': flag }">|</span>
         </div>
       </div>
     </div>
@@ -37,8 +58,8 @@ getBlogList().then(res => {
       <div class="text-[12px] text-center">-- 暂无更多内容 --</div>
     </div>
 
-    <div v-if="initialState.device === 'desktop'" class="fixed bottom-[24px] left-[48px] text-[12px] text-[#576b95] flex align-baseline gap-x-[4px]">
-      <div class="border-b-[1px] border-b-[#576b95] cursor-pointer" @click="handleToGithub">
+    <div v-if="initialState.device === 'desktop'" class="fixed bottom-[24px] left-[48px] text-[12px] text-[#4792b9] flex align-baseline gap-x-[4px]">
+      <div class="c-decoration cursor-pointer" @click="handleToGithub">
         Snowinlu
       </div>
       <div class="text-[14px] font-bold">©</div>
@@ -48,12 +69,6 @@ getBlogList().then(res => {
 </template>
 
 <style lang="scss" scoped>
-.header {
-  background-image: url('@/assets/wallhaven-6dexwq.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-
 @media (max-width: 991.9px) {
   .type-page {
     width: 100%;
@@ -63,5 +78,40 @@ getBlogList().then(res => {
   .type-page {
     @apply w-[567px] mx-auto;
   }
+}
+
+.header {
+  background-image: url('@/assets/wallhaven-6dexwq.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.c-decoration {
+  @apply relative w-fit px-[2px] hover:text-white;
+  &::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 66%;
+    left: -.1em;
+    right: -.1em;
+    bottom: 0;
+    transition: top .2s cubic-bezier(0,.8,.13,1);
+    background-color: #4792b9;
+  }
+
+  &:hover::after {
+    top: 0
+  }
+}
+
+@keyframes typedJsBlink {
+  50% {
+    opacity: 0.0;
+  }
+}
+
+.typed-cursor {
+  animation: typedJsBlink 0.7s infinite;
 }
 </style>
