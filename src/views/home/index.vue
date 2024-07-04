@@ -13,7 +13,7 @@ function handleToGithub() {
   location.href = 'https://github.com/Kevinlee23'
 }
 
-getBlogList().then((res) => {
+getBlogList({ page: 1, size: 20 }).then((res) => {
   bokeList.value = (res as unknown as Response<{ rows: Blog[], total: string }>).data.rows
 })
 

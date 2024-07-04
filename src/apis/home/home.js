@@ -1,8 +1,9 @@
 import request from '@/utils/request'
 
-export const getBlogList = () => {
+export function getBlogList(data) {
   return request({
     url: 'blog/list',
-    method: 'get',
+    method: 'post',
+    data,
   })
 }
