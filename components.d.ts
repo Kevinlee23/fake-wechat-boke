@@ -16,6 +16,8 @@ declare module 'vue' {
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElImage: typeof import('element-plus/es')['ElImage']
     ElInput: typeof import('element-plus/es')['ElInput']
+    ElScroll: typeof import('element-plus/es')['ElScroll']
+    ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     ElText: typeof import('element-plus/es')['ElText']
     MusicPlayer: typeof import('./src/components/music-player/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

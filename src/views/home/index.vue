@@ -1,21 +1,37 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useScroll } from '@vueuse/core'
 import type { Blog } from 'types/blog/index.ts'
 import type { Response } from 'types/request'
 import bokeItem from './boke-item.vue'
 import { initialState } from '@/to-rem.ts'
 import avatar from '@/assets/wallhaven-3l7vqy.jpg'
 import { getBlogList } from '@/apis/home/home.js'
+import useScrollEl from '@/hooks/use-scroll-el'
 
+const finish = ref(false)
 const bokeList = ref<Blog[]>([])
+const pagination = reactive({
+  page: 1,
+  size: 5,
+  total: 0,
+})
 
 function handleToGithub() {
   location.href = 'https://github.com/Kevinlee23'
 }
 
-getBlogList({ page: 1, size: 20 }).then((res) => {
-  bokeList.value = (res as unknown as Response<{ rows: Blog[], total: string }>).data.rows
-})
+function getList() {
+  getBlogList(pagination).then((res) => {
+    bokeList.value = [...bokeList.value, ...(res as unknown as Response<{ rows: Blog[], total: string }>).data.rows]
+    pagination.total = res.data.total
+    pagination.page++
+    if (bokeList.value.length === pagination.total)
+      finish.value = true
+  })
+}
+
+getList()
 
 const text = 'A week is 2% of a year'
 
@@ -32,6 +48,14 @@ function addNextCharacter() {
     flag.value = true
   }
 }
+
+const { scrollEl } = useScrollEl()
+const { arrivedState } = useScroll(scrollEl, { offset: { bottom: 50 }, throttle: 200 })
+
+watch(() => arrivedState.bottom, () => {
+  if (!finish.value)
+    getList()
+})
 
 onMounted(() => {
   typeEl.value && (typeEl.value.textContent = '')
@@ -57,7 +81,7 @@ onMounted(() => {
     </div>
     <div class="w-full min-h-screen">
       <boke-item v-for="item in bokeList" :key="item._id" :model="item" :comments="item.commentIds" />
-      <div class="text-[12px] text-center">
+      <div v-if="finish" class="text-[12px] text-center">
         -- 暂无更多内容 --
       </div>
     </div>

@@ -2,6 +2,7 @@
 import type { PropType } from 'vue'
 import { Comment as IconComment, MoreFilled, Star, StarFilled } from '@element-plus/icons-vue'
 import { format } from 'timeago.js'
+import { LayoutGrid } from 'lucide-vue-next'
 import type { Blog } from 'types/blog/index.ts'
 import type { Comment } from 'types/comment/index.ts'
 import MusicPlayer from '@/components/music-player/index.vue'
@@ -42,7 +43,12 @@ function handleEvent(command: string) {
 
         <!-- IMAGE -->
         <template v-if="model.imageList?.length">
-          <el-image class="w-[288px]" :src="model.imageList[0]" :preview-src-list="model.imageList" />
+          <div class="relative w-fit">
+            <el-image class="w-[288px]" :src="model.imageList[0]" :preview-src-list="model.imageList" />
+            <div v-if="model.imageList.length > 1" class="absolute bottom-2 right-2 p-[2px] bg-white rounded-sm" title="多张图片">
+              <LayoutGrid color="#000" :size="20" />
+            </div>
+          </div>
         </template>
 
         <!-- MUSIC -->

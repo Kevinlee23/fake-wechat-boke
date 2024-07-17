@@ -13,6 +13,7 @@
     "@vueuse/core": "^10.9.0",
     "axios": "^1.6.8",
     "cplayer": "^3.2.2",
+    "lucide-vue-next": "^0.408.0",
     "pinia": "^2.1.7",
     "timeago.js": "^4.0.2",
     "unplugin-auto-import": "^0.17.5",
