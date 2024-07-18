@@ -49,6 +49,10 @@ function addNextCharacter() {
   }
 }
 
+function handleLike(blog: Blog, num: number) {
+  blog.likeNum += num
+}
+
 const { scrollEl } = useScrollEl()
 const { arrivedState } = useScroll(scrollEl, { offset: { bottom: 50 }, throttle: 200 })
 
@@ -65,28 +69,28 @@ onMounted(() => {
 
 <template>
   <div class="type-page relative bg-white">
-    <div class="header w-full h-[308px] mb-[48px] relative">
-      <div class="absolute -bottom-[40px] right-[24px]">
-        <div class="flex items-center justify-end mb-[12px]">
+    <div class="header w-full h-[308px] mb-12 relative">
+      <div class="absolute -bottom-10 right-6">
+        <div class="flex items-center justify-end mb-3">
           <div class="mr-[16px] text-white">
             麓下雪
           </div>
           <el-image class="w-[60px] h-[60px] rounded-[8px]" :src="avatar" />
         </div>
-        <div class="text-[12px] text-[#666666] font-medium">
+        <div class="text-3 text-[#666666] font-medium">
           <span ref="typeEl" />
-          <span class="pl-[4px] font-bold" :class="{ 'typed-cursor': flag }">|</span>
+          <span class="pl-1 font-bold" :class="{ 'typed-cursor': flag }">|</span>
         </div>
       </div>
     </div>
     <div class="w-full min-h-screen">
-      <boke-item v-for="item in bokeList" :key="item._id" :model="item" :comments="item.commentIds" />
-      <div v-if="finish" class="text-[12px] text-center">
+      <boke-item v-for="item in bokeList" :key="item._id" :model="item" :comments="item.commentIds" @like-operate="(num) => handleLike(item, num)" />
+      <div v-if="finish" class="text-3 text-center">
         -- 暂无更多内容 --
       </div>
     </div>
 
-    <div v-if="initialState.device === 'desktop'" class="fixed bottom-[24px] left-[48px] text-[12px] text-[#4792b9] flex align-baseline gap-x-[4px]">
+    <div v-if="initialState.device === 'desktop'" class="fixed bottom-6 left-[48px] text-3 text-[#4792b9] flex align-baseline gap-x-1">
       <div class="c-decoration cursor-pointer" @click="handleToGithub">
         Snowinlu
       </div>
