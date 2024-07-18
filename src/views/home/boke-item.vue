@@ -2,7 +2,7 @@
 import type { PropType } from 'vue'
 import { Comment as IconComment, MoreFilled, Star, StarFilled } from '@element-plus/icons-vue'
 import { format } from 'timeago.js'
-import { LayoutGrid } from 'lucide-vue-next'
+import { Heart, HeartOff, LayoutGrid, MessageSquareMore } from 'lucide-vue-next'
 import type { Blog } from 'types/blog/index.ts'
 import type { Comment } from 'types/comment/index.ts'
 import MusicPlayer from '@/components/music-player/index.vue'
@@ -105,15 +105,12 @@ function handleLike(blogId: string) {
             <template #dropdown>
               <el-dropdown-menu>
                 <el-dropdown-item>
-                  <el-icon class="text-[18px] mr-1">
-                    <StarFilled />
-                  </el-icon>
+                  <Heart v-if="likeState === 0" class="mr-1" :size="16" />
+                  <HeartOff v-else class="mr-1" :size="16" />
                   {{ likeState === 0 ? '点赞' : '取消点赞' }}
                 </el-dropdown-item>
                 <el-dropdown-item command="comment">
-                  <el-icon class="text-[18px] mr-1">
-                    <IconComment />
-                  </el-icon>
+                  <MessageSquareMore class="mr-1" :size="16" />
                   评论
                 </el-dropdown-item>
               </el-dropdown-menu>
@@ -128,16 +125,16 @@ function handleLike(blogId: string) {
             </el-icon>
             {{ model.likeNum }}位访客赞过
           </div>
-          <div v-for="(item, index) in comments" :key="item._id" class="flex" :class="{ 'mb-1': index !== comments.length - 1 }">
-            <div class="flex gap-x-1 text-[#576b95]">
-              <span>{{ item.authorName }}</span>
+          <div v-for="(item, index) in comments" :key="item._id" class="comment-flex" :class="{ 'mb-1': index !== comments.length - 1 }">
+            <div class="flex gap-x-0.5 text-[#576b95]">
+              <span>{{ item.authorId.nickname }}</span>
               <template v-if="item.parentId">
                 <span>回复</span>
-                <span>{{ item.parantName }}</span>
+                <span>{{ item.parentId.authorId.nickname }}</span>
               </template>
               <span>:</span>
             </div>
-            <div class="ml-2 cursor-pointer" @click="tapInput(item)">
+            <div class="ml-1 cursor-pointer" @click="tapInput(item)">
               {{ item.content }}
             </div>
           </div>
@@ -158,5 +155,18 @@ function handleLike(blogId: string) {
   :deep(.el-dropdown-menu) {
     @apply flex p-1;
   }
+}
+
+.comment-flex {
+  @apply flex;
+}
+
+@media (max-width: 991.9px) {
+  .comment-flex {
+    @apply flex-col;
+  }
+}
+@media (min-width: 992px) {
+  .comment-flex {}
 }
 </style>

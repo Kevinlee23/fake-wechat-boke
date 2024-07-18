@@ -70,9 +70,9 @@ onMounted(() => {
 <template>
   <div class="type-page relative bg-white">
     <div class="header w-full h-[308px] mb-12 relative">
-      <div class="absolute -bottom-10 right-6">
+      <div class="absolute -bottom-[64px] right-6">
         <div class="flex items-center justify-end mb-3">
-          <div class="mr-[16px] text-white">
+          <div class="mr-[16px] text-[white]">
             麓下雪
           </div>
           <el-image class="w-[60px] h-[60px] rounded-[8px]" :src="avatar" />

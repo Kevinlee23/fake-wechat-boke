@@ -8,6 +8,8 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     CommentInput: typeof import('./src/components/comments/comment-input.vue')['default']
+    ElButton: typeof import('element-plus/es')['ElButton']
+    ElDialog: typeof import('element-plus/es')['ElDialog']
     ElDivider: typeof import('element-plus/es')['ElDivider']
     ElDivier: typeof import('element-plus/es')['ElDivier']
     ElDropdown: typeof import('element-plus/es')['ElDropdown']

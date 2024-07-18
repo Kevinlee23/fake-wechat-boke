@@ -14,3 +14,11 @@ export function likeOperate(blogId, cal) {
     data: { blogId, cal },
   })
 }
+
+export function updateNickname(nickname) {
+  return request({
+    method: 'post',
+    url: 'visitor/updateNickname',
+    data: { nickname },
+  })
+}
